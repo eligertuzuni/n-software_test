@@ -1,22 +1,27 @@
-import java.io.*;
-import java.net.*;
+package com.nsoftware.test;
+
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class TcpSerialReceiver {
     public static void main(String[] args) {
         int port = 9999;
-        System.out.println("[Receiver] Waiting for connection on port " + port + "...");
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Receiver waiting on port " + port + "...");
+
             Socket clientSocket = serverSocket.accept();
-            System.out.println("[Receiver] Connected to client: " + clientSocket.getInetAddress());
+            InputStream input = clientSocket.getInputStream();
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String line;
+            byte[] buffer = new byte[1024];
+            int bytesRead = input.read(buffer);
+            String received = new String(buffer, 0, bytesRead);
 
-            while ((line = in.readLine()) != null) {
-                System.out.println("[Receiver] Received: " + line);
-            }
-        } catch (IOException e) {
+            System.out.println("Message received: " + received);
+
+        } catch (Exception e) {
+            System.err.println("Error in TcpSerialReceiver: " + e.getMessage());
             e.printStackTrace();
         }
     }
