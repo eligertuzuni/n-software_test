@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ipworkssftp">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/IPWorks SFTP 2024 Java Edition/lib/ipworkssftp.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Documents/IPWorks SFTP 2024 Java Edition/lib/ipworkssftp.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
