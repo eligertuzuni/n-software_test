@@ -39,6 +39,6 @@ This test case demonstrates how to send and receive binary data line-by-line ove
 
 ## Requirements
 - Java 8 or higher
-- No external dependencies
+- No external dependencies but we can use jar files of n-software
 - Open the TCP port in firewall if running on different machines
 
