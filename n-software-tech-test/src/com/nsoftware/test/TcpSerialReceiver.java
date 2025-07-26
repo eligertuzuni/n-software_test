@@ -1,26 +1,23 @@
-package com.nsoftware.test;
+import java.io.*;
+import java.net.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-
-//Java Server (Listens via TCP → Prints)
 public class TcpSerialReceiver {
-    public static void main(String[] args) throws Exception {
-        ServerSocket server = new ServerSocket(12345);
-        System.out.println("Listening...");
+    public static void main(String[] args) {
+        int port = 9999;
+        System.out.println("[Receiver] Waiting for connection on port " + port + "...");
 
-        Socket client = server.accept();
-        BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("[Receiver] Connected to client: " + clientSocket.getInetAddress());
 
-        String line;
-        while ((line = in.readLine()) != null) {
-            System.out.println("Received: " + line);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            String line;
+
+            while ((line = in.readLine()) != null) {
+                System.out.println("[Receiver] Received: " + line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        in.close();
-        client.close();
-        server.close();
     }
 }
